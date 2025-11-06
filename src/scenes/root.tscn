@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://begej7of78u6y"]
+
+[ext_resource type="Script" uid="uid://ccy78ottotsjm" path="res://scripts/root.gd" id="1_j5px3"]
+[ext_resource type="Script" uid="uid://26mrdjrb3rx7" path="res://scripts/movement.gd" id="2_twpsu"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_twpsu"]
+sky_curve = 0.17230493
+sky_cover_modulate = Color(0, 1, 1, 1)
+ground_bottom_color = Color(0.2, 0.21960784, 0.13333334, 1)
+
+[sub_resource type="Sky" id="Sky_lrqlo"]
+sky_material = SubResource("ProceduralSkyMaterial_twpsu")
+
+[sub_resource type="Environment" id="Environment_sqa0i"]
+background_mode = 2
+sky = SubResource("Sky_lrqlo")
+
+[node name="root" type="Node3D"]
+script = ExtResource("1_j5px3")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1920929e-07, 0.14588666, 2.268723)
+script = ExtResource("2_twpsu")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sqa0i")
