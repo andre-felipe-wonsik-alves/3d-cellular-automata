@@ -26,23 +26,23 @@ func _ready() -> void:
 	rng.randomize()
 
 	# Estado
-	grid = CA3DGrid.new(cells_per_side, cells_y, cells_per_side)
+	grid = GridController.new(cells_per_side, cells_y, cells_per_side)
 	grid.randomize(initial_alive_chance, rng)
 
 	# Regra default se nada foi atribuído
 	if rule == null:
-		rule = BasicLife3DRule.new()
+		rule = ConwaysRule.new()
 
 	# Autômato
-	automaton = CA3DAutomaton.new(grid, rule, wrap_edges)
+	automaton = EvolutionController.new(grid, rule, wrap_edges)
 
 	# Bounds
-	bounds_renderer = BoundsRenderer3D.new()
+	bounds_renderer = BoundaryRenderer.new()
 	add_child(bounds_renderer)
 	bounds_renderer.build_bounds(cells_per_side, cells_y, cell_size, base_y)
 
 	# Renderer de células
-	volume_renderer = VolumeRenderer3D.new()
+	volume_renderer = CellRenderer.new()
 	add_child(volume_renderer)
 	volume_renderer.setup(cube_scene, cell_size, base_y)
 	volume_renderer.build_from_grid(grid)
