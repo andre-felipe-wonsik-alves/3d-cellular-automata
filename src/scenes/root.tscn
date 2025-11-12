@@ -1,13 +1,28 @@
 [gd_scene load_steps=4 format=3 uid="uid://begej7of78u6y"]
 
 [ext_resource type="Script" uid="uid://ccy78ottotsjm" path="res://scripts/root.gd" id="1_j5px3"]
-[ext_resource type="Script" uid="uid://26mrdjrb3rx7" path="res://scripts/movement.gd" id="2_twpsu"]
+[ext_resource type="Script" uid="uid://26mrdjrb3rx7" path="res://scripts/camera/movement.gd" id="2_twpsu"]
 
 [sub_resource type="Environment" id="Environment_sqa0i"]
 background_mode = 2
 
 [node name="root" type="Node3D"]
 script = ExtResource("1_j5px3")
+cells_per_side = null
+cells_y = null
+cell_size = null
+base_y = null
+floor_color = null
+wall_color = null
+left_wall_color = null
+step_interval = null
+initial_alive_chance = null
+birth_min = null
+birth_max = null
+survive_min = null
+survive_max = null
+wrap_edges = null
+auto_run = null
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4522587, 0.8536904, 4.143507)
