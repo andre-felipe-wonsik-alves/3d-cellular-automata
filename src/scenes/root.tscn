@@ -1,24 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://begej7of78u6y"]
+[gd_scene load_steps=4 format=3 uid="uid://begej7of78u6y"]
 
 [ext_resource type="Script" uid="uid://ccy78ottotsjm" path="res://scripts/root.gd" id="1_j5px3"]
 [ext_resource type="Script" uid="uid://26mrdjrb3rx7" path="res://scripts/movement.gd" id="2_twpsu"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_twpsu"]
-
-[sub_resource type="Sky" id="Sky_lrqlo"]
-sky_material = SubResource("ProceduralSkyMaterial_twpsu")
-
 [sub_resource type="Environment" id="Environment_sqa0i"]
 background_mode = 2
-sky = SubResource("Sky_lrqlo")
 
 [node name="root" type="Node3D"]
 script = ExtResource("1_j5px3")
-spawn_height = 1.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1920929e-07, 0.14588666, 2.268723)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4522587, 0.8536904, 4.143507)
 script = ExtResource("2_twpsu")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_sqa0i")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
