@@ -1,3 +1,6 @@
+# A huge thanks to Acerola for creating and sharing this code!
+# Check out his channel: https://www.youtube.com/@Acerola_t/videos
+
 extends Camera3D
 
 var target_camera_state : CameraState;

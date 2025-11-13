@@ -48,7 +48,6 @@ func build_bounds(size_x: int, size_y: int, cell_size: float, base_y: float) -> 
 	back_wall.position = Vector3(0.0, base_y + height_size * 0.5, half + eps)
 	add_child(back_wall)
 
-	# Parede esquerda (YZ) em X-
 	var left_wall := MeshInstance3D.new()
 	var left_mesh := PlaneMesh.new()
 	left_mesh.size = Vector2(height_size, side_size)

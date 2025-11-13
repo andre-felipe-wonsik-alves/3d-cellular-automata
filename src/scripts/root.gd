@@ -6,7 +6,7 @@ extends Node3D
 @export var base_y: float = 0.0
 
 @export var cube_scene: PackedScene
-@export var rule: IRule        # arraste um BasicLife3DRule no editor
+@export var rule: IRule       
 
 @export var step_interval: float = 0.25
 @export var auto_run: bool = true
@@ -51,20 +51,21 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if not auto_run:
 		return
-
+	
+	_handle_input()
+		
 	time_accum += delta
 	if time_accum >= step_interval:
 		time_accum = 0.0
 		_step_and_render()
 
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_accept"):
-		_step_and_render()
-	elif event.is_action_pressed("ui_select"):
+func _handle_input() -> void:
+	if Input.is_action_just_pressed("start"):
 		grid.randomize(initial_alive_chance, rng)
 		volume_renderer.update_from_grid(grid)
-
+		
+	elif Input.is_action_just_pressed("skip"):
+		_step_and_render()
 
 func _step_and_render() -> void:
 	automaton.step()
