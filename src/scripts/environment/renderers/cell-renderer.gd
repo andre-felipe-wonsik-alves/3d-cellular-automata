@@ -1,6 +1,9 @@
 extends Node3D
 class_name CellRenderer
 
+const GeneConfig = preload("res://scripts/environment/genetics/gene-config.gd")
+const CellView = preload("res://scripts/cell/cell.gd")
+
 var cube_scene: PackedScene
 var cell_size: float = 1.0
 var base_y: float = 0.0
@@ -32,6 +35,7 @@ func build_from_grid(grid: GridController) -> void:
 				cube.position = _cell_to_world_pos(x, y, z)
 				cube.visible = grid.cells.get_at(x, y, z)
 				add_child(cube)
+				_update_cube_visual(cube, grid.get_cell(x, y, z), grid.get_gene(x, y, z))
 				cubes[Vector3i(x, y, z)] = cube
 
 func update_from_grid(grid: GridController) -> void:
@@ -43,9 +47,24 @@ func update_from_grid(grid: GridController) -> void:
 				if cube:
 					var alive: bool = grid.cells.get_at(x, y, z)
 					cube.visible = alive
+					_update_cube_visual(cube, alive, grid.get_gene(x, y, z))
 
 func _cell_to_world_pos(x: int, y: int, z: int) -> Vector3:
 	var offset_x := (x - (size_x / 2.0) + 0.5) * cell_size
 	var offset_y := base_y + (y + 0.5) * cell_size
 	var offset_z := (z - (size_z / 2.0) + 0.5) * cell_size
 	return Vector3(offset_x, offset_y, offset_z)
+
+func _update_cube_visual(cube: Node3D, alive: bool, gene: int) -> void:
+	if not alive:
+		return
+	if cube is CellView:
+		var cell := cube as CellView
+		cell.set_cell_color(_color_for_gene(gene))
+
+func _color_for_gene(gene: int) -> Color:
+	if gene == GeneConfig.NO_GENE:
+		return Color(0.1, 0.1, 0.1)
+	var normalized := float(gene - GeneConfig.MIN_GENE) / float(GeneConfig.span())
+	var hue := lerpf(0.02, 0.75, normalized)
+	return Color.from_hsv(hue, 0.75, 0.95)
