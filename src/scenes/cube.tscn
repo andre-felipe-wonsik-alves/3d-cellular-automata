@@ -8,4 +8,5 @@
 script = ExtResource("1_7ufek")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+cast_shadow = 0
 mesh = SubResource("BoxMesh_5rbgv")

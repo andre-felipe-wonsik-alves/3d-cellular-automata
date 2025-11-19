@@ -126,3 +126,11 @@ func create_gene_buffer(default_gene: int = GeneConfig.NO_GENE) -> GeneGrid:
 func apply_state(next_cells: BoolArray3D, next_genes: GeneGrid) -> void:
 	cells = next_cells
 	genes = next_genes
+
+func is_empty() -> bool:
+	for x: int in range(size_x):
+		for y: int in range(size_y):
+			for z: int in range(size_z):
+				if cells.get_at(x, y, z):
+					return false
+	return true

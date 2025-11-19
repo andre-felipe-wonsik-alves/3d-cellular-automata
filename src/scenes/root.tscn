@@ -14,8 +14,11 @@ background_mode = 2
 
 [node name="root" type="Node3D"]
 script = ExtResource("1_j5px3")
+cells_x = 25
+cells_y = 25
 cube_scene = ExtResource("2_sqa0i")
 rule = SubResource("Resource_kycxp")
+auto_run = false
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4522587, 0.8536904, 4.143507)
@@ -25,3 +28,44 @@ script = ExtResource("2_twpsu")
 environment = SubResource("Environment_sqa0i")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+shadow_enabled = true
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.0018151234, -0.99999833, 0, 0.99999833, -0.0018151234, 0, 0, 0)
+light_energy = 0.5
+shadow_enabled = true
+
+[node name="DirectionalLight3D3" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.99988866, -0.014921977, 0, 0.014921977, -0.99988866, 0, 0, 0)
+light_energy = 0.25
+shadow_enabled = true
+
+[node name="DirectionalLight3D4" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.0037873313, 0.9999929, 0, -0.9999929, 0.0037873313, 0, 0, 0)
+light_energy = 0.1
+shadow_enabled = true
+
+[node name="DirectionalLight3D5" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.04674035, 0.003783192, 0.9989, -0.9989071, -0.00017702118, -0.046740018, 0, -0.9999929, 0.0037873313, 0, 0, 0)
+light_energy = 0.1
+shadow_enabled = true
+
+[node name="DirectionalLight3D6" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.043392606, -0.0037837639, -0.99905103, 0.99905807, -0.00016434217, -0.043392297, -3.6534257e-12, -0.9999929, 0.003787331, 0, 0, 0)
+light_energy = 0.1
+shadow_enabled = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="GenerationLabel" type="Label" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -220.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 24
+text = "Gerações: 0"
+horizontal_alignment = 2
+vertical_alignment = 1

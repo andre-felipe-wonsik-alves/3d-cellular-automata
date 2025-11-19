@@ -1,6 +1,6 @@
 extends Node3D
 
-@export var cells_per_side: int = 10
+@export var cells_x: int = 10
 @export var cells_y: int = 5
 @export var cell_size: float = 1.0
 @export var base_y: float = 0.0
@@ -26,13 +26,16 @@ var bounds_renderer: BoundaryRenderer
 var gene_regulator: GeneRegulator
 
 var time_accum: float = 0.0
+var generation_count: int = 0
+
+@onready var generation_label: Label = $UI/GenerationLabel
 
 
 func _ready() -> void:
 	rng.randomize()
 
 	# Estado
-	grid = GridController.new(cells_per_side, cells_y, cells_per_side)
+	grid = GridController.new(cells_x, cells_y, cells_x)
 	grid.randomize(initial_alive_chance, rng)
 
 	if rule == null:
@@ -43,19 +46,22 @@ func _ready() -> void:
 	automaton = EvolutionController.new(grid, rule, wrap_edges, gene_regulator, rng)
 
 	# Bounds
-	bounds_renderer = BoundaryRenderer.new()
-	add_child(bounds_renderer)
-	bounds_renderer.build_bounds(cells_per_side, cells_y, cell_size, base_y)
+	#bounds_renderer = BoundaryRenderer.new()
+	#add_child(bounds_renderer)
+	#bounds_renderer.build_bounds(cells_x, cells_y, cell_size, base_y)
 
 	# Renderer de células
 	volume_renderer = CellRenderer.new()
 	add_child(volume_renderer)
 	volume_renderer.setup(cube_scene, cell_size, base_y)
 	volume_renderer.build_from_grid(grid)
+	_update_generation_label()
 
 
 func _process(delta: float) -> void:
 	if not auto_run:
+		_handle_input()
+		
 		return
 	
 	_handle_input()
@@ -69,12 +75,17 @@ func _handle_input() -> void:
 	if Input.is_action_just_pressed("start"):
 		grid.randomize(initial_alive_chance, rng)
 		volume_renderer.update_from_grid(grid)
+		generation_count = 0
+		_update_generation_label()
 		
 	elif Input.is_action_just_pressed("skip"):
 		_step_and_render()
 
 func _step_and_render() -> void:
 	automaton.step()
+	if !grid.is_empty():
+		generation_count += 1
+	_update_generation_label()
 	volume_renderer.update_from_grid(grid)
 
 func set_mutation_chance(value: float) -> void:
@@ -89,3 +100,7 @@ func set_target_gene(value: int) -> void:
 
 func _create_gene_regulator() -> void:
 	gene_regulator = GeneRegulator.new(target_gene, mutation_chance)
+
+func _update_generation_label() -> void:
+	if generation_label:
+		generation_label.text = "Gerações: %d" % generation_count
